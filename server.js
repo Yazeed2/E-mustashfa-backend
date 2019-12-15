@@ -13,8 +13,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-// uploading files
 
+
+// uploading file
 const { ApolloServer, gql } = require("apollo-server-express");
 const { createWriteStream, existsSync, mkdirSync } = require("fs");
 const path = require("path");
@@ -71,6 +72,7 @@ const server = new ApolloServer({ typeDefs, resolvers });
 app.use("/images", express.static(path.join(__dirname, "../images")));
 server.applyMiddleware({ app });
 // end Uploading
+
 
 
 app.use('/user',require('./routes/user'))
