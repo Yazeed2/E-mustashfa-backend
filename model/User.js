@@ -41,6 +41,26 @@ emergencyName : {
     required:true,
     type:String
 },
+specialty: {
+    required:true,
+    type:String
+},
+year_of_exp : {
+    required:true,
+    type:String
+},
+gender : {
+    required:true,
+    type:String
+},
+working_time : {
+    required:true,
+    type:String
+},
+rating : {
+    required:true,
+    type:String
+},
 emergencyPhone : {
     required:true,
     type:String
