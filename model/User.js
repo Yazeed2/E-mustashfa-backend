@@ -41,26 +41,12 @@ emergencyName : {
     required:false,
     type:String
 },
-specialty: {
-    required:false,
-    type:String
-},
-year_of_exp : {
-    required:false,
-    type:String
-},
+
 gender : {
     required:false,
     type:String
 },
-working_time : {
-    required:false,
-    type:String
-},
-rating : {
-    required:false,
-    type:String
-},
+
 emergencyPhone : {
     required:false,
     type:String
