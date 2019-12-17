@@ -13,7 +13,8 @@ rating: {
     required:true,
     type:String
 },
-doctors: [],
+sections:[],
+doctors:[]
 
 },{timestamps:true})
  

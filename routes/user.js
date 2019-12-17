@@ -25,6 +25,8 @@ router.post('/register', (req,res)=>{
     User.findOne({email : req.body.email})
     .then(user =>{
         if(!user){
+            console.log('working!');
+            
             bcrypt.hash(req.body.password, 10, (err, hash)=>{ 
                 newUser.password = hash
                 User.create(newUser)
@@ -35,6 +37,7 @@ router.post('/register', (req,res)=>{
             res.send('email is used')
         }
     }).catch(err => res.send(err))
+    //send a token here VVV
 })
 // nouf 
 // Login steps (1-login) 
@@ -44,15 +47,22 @@ router.post('/login', (req, res) => {
         })
         .then(user => {            
             if (user) {
+                console.log(user);
+               console.log(bcrypt.compareSync(req.body.password, user.password));
+               console.log("ddd");
+               
                 
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     user.password = "" 
                     var paylod = {
                         user
                     }
+                    console.log("tee");
+                    
                     let token = jwt.sign(paylod, 'secret', {
                         expiresIn: 60*60*24*365
                     })
+                    console.log("feee");
                     res.send(token)
                 }
                 // if password not the same
@@ -75,6 +85,7 @@ router.post('/changepassword/:token' , (req , res)=>{
 // newPassword
 
     var decoded = jwt.verify(req.params.token, 'secret')
+ 
     bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
         var password = hash
         User.findByIdAndUpdate(decoded.user._id , {password:password  }  )
@@ -85,6 +96,24 @@ router.post('/changepassword/:token' , (req , res)=>{
 
 })
 
+// check the password
+router.post('/check' , (req,res)=>{
+
+    User.findOne({email : req.body.email})
+    .then(user=>{
+
+        res.send(bcrypt.compareSync(req.body.oldPassword, user.password))
+    })
+
+
+})
+
+
+router.get('/Nouf' , (req,res) =>{
+
+    User.find()
+    .then (users => res.send(users))
+})
 
 
 module.exports = router

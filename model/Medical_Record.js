@@ -1,21 +1,19 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const medicalSchema = new Schema({
-dob : {
+date : {
     required:true,
     type:Date
 },
-previousSurgries : {
-    type:String
+text:{
+    type:String,
+    required:true
 },
-
-longDiseases : {
-    type:String
-},
-medicalState : {
-    type:String
+type : {
+    type:String,
+    required: true
 },
 },{timestamps:true})
  
-const Medical = mongoose.model('user',medicalSchema)
+const Medical = mongoose.model('Medical_Records',medicalSchema)
 module.exports=Medical
