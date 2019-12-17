@@ -11,5 +11,5 @@ dob : {
 },
 },{timestamps:true})
  
-const Rays = mongoose.model('user',raysSchema)
+const Rays = mongoose.model('Rays',raysSchema)
 module.exports=Rays
