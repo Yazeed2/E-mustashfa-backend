@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const userShema = new Schema({
+const doctorsShema = new Schema({
 first_name : {
     required:true,
     type:String
@@ -9,25 +9,9 @@ last_name : {
     required:true,
     type:String
 },
-email: {
-    required:true,
-    type:String
-},
 password : {
     required:true,
     type:String
-},
-dob : {
-    required:true,
-    type:Date
-},
-weight : {
-    required:true,
-    type:Number
-},
-height : {
-    required:true,
-    type:Number
 },
 nationality : {
     required:true,
@@ -41,15 +25,31 @@ emergencyName : {
     required:true,
     type:String
 },
+specialty: {
+    required:true,
+    type:String
+},
+yearOfExp : {
+    required:true,
+    type:String
+},
 gender : {
     required:true,
     type:String
 },
-emergencyPhone : {
+workingTime : {
     required:true,
+    type:String
+},
+rating : {
+    required:true,
+    type:String
+},
+emergencyPhone : {
+    required:false,
     type:String
 },
 },{timestamps:true})
  
-const User = mongoose.model('user',userShema)
-module.exports=User
+const Doctors = mongoose.model('Doctors',doctorsShema)
+module.exports=Doctors
