@@ -12,5 +12,6 @@ dob : {
 },
 },{timestamps:true})
  
-const Test = mongoose.model('user',testSchema)
+const Test = mongoose.model('Tests',testSchema)
 module.exports=Test
+

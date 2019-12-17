@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 
-
+app.use('/file',require('./routes/add'))
 app.use('/user',require('./routes/user'))
 
 app.listen(PORT,()=>console.log('server is running in '+ PORT))

@@ -13,12 +13,12 @@ duration: {
     required:true,
     type:String
 },
-dob : {
+date : {
     required:true,
     type:Date
 },
 
 },{timestamps:true})
  
-const Drugs = mongoose.model('user',drugsSchema)
+const Drugs = mongoose.model('Drugs',drugsSchema)
 module.exports=Drugs

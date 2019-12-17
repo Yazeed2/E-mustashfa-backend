@@ -25,6 +25,8 @@ router.post('/register', (req,res)=>{
     User.findOne({email : req.body.email})
     .then(user =>{
         if(!user){
+            console.log('working!');
+            
             bcrypt.hash(req.body.password, 10, (err, hash)=>{ 
                 newUser.password = hash
                 User.create(newUser)
@@ -35,6 +37,7 @@ router.post('/register', (req,res)=>{
             res.send('email is used')
         }
     }).catch(err => res.send(err))
+    //send a token here VVV
 })
 // nouf 
 // Login steps (1-login) 
