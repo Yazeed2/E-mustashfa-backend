@@ -83,30 +83,39 @@ router.post('/login', (req, res) => {
 router.post('/changepassword/:token' , (req , res)=>{
     
 // newPassword
-
-    var decoded = jwt.verify(req.params.token, 'secret')
  
-    bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
-        var password = hash
-        User.findByIdAndUpdate(decoded.user._id , {password:password  }  )
-        .then(user => res.send({msg :`the password has change `  , user :user}))
-        .catch(err => res.send(err))
-    })
+if(req.body.id){
+        
+    userId = req.body.id
+}
+ else if(req.body.token){
+    var decoded = jwt.verify(req.body.token, 'secret');
+    userId = decoded.user._id
+}else{
+    res.json({"msg":"error connot find a token or userId :P"})
+}
+   User.findById(
+
+   )
+.then(user=>{
+
+    let auth = bcrypt.compareSync(req.body.oldPassword, user.password)
+    if(auth){
+        var decoded = jwt.verify(req.params.token, 'secret')
+ 
+        bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+            var password = hash
+            User.findByIdAndUpdate(decoded.user._id , {password:password  }  )
+            .then(user => res.send({msg :`the password has change `  , user :user}))
+            .catch(err => res.send(err))
+        })
+     
+    }
+})
  
 
 })
 
-// check the password
-router.post('/check' , (req,res)=>{
-
-    User.findOne({email : req.body.email})
-    .then(user=>{
-
-        res.send(bcrypt.compareSync(req.body.oldPassword, user.password))
-    })
-
-
-})
 
 
 router.get('/Nouf' , (req,res) =>{
