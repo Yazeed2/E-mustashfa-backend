@@ -45,9 +45,10 @@ router.post('/login', (req, res) => {
 
     User.findOne({ email: req.body.email
         })
-        .then(user => {            
+        .then(user => {  
+           
+   
             if (user) {
-                
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     user.password = "" 
                     var paylod = {
@@ -57,6 +58,8 @@ router.post('/login', (req, res) => {
                         expiresIn: 60*60*24*365
                     })
                     res.send(token)
+        
+
                 }
                 // if password not the same
                 else {
@@ -73,11 +76,11 @@ router.post('/login', (req, res) => {
 
 // change the passwoer 
 
-router.post('/changepassword/:token' , (req , res)=>{
+router.post('/changepassword' , (req , res)=>{
     
 // newPassword
     //find the id from the token 
-    var decoded = jwt.verify(req.params.token, 'secret');
+    var decoded = jwt.verify(req.body.token, 'secret');
     let userId = decoded.user._id
     //compare the password with the old pass
     User.findById(userId)

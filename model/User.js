@@ -10,11 +10,11 @@ last_name : {
     type:String
 },
 email: {
-    required:false,
+    required:true,
     type:String
 },
 password : {
-    required:false,
+    required:true,
     type:String
 },
 dob : {
