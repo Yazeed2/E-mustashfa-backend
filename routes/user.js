@@ -76,16 +76,31 @@ router.post('/login', (req, res) => {
 router.post('/changepassword/:token' , (req , res)=>{
     
 // newPassword
-
-    var decoded = jwt.verify(req.params.token, 'secret')
-    bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
-        var password = hash
-        User.findByIdAndUpdate(decoded.user._id , {password:password  }  )
-        .then(user => res.send({msg :`the password has change `  , user :user}))
-        .catch(err => res.send(err))
+    //find the id from the token 
+    var decoded = jwt.verify(req.body.token, 'secret');
+    let userId = decoded.user._id
+    //compare the password with the old pass
+    User.findById(userId)
+    .then(user => {            
+        if (user) {
+            
+            if (bcrypt.compareSync(req.body.oldPassword, user.password)) {
+              //change the password 
+              bcrypt.hash(req.body.newPassword, 10, (err, hash)=>{ 
+             
+                User.findByIdAndUpdate(userId, {password:hash})
+                .then(user => res.json({msg:'changed password!'}))
+                .catch(err=> res.send(err))
+            })
+            }
+            else {
+                res.json({msg :"Password is not currect"})
+            }
+        } 
     })
+    .catch(err=>res.send(err))
+    
  
-
 })
 
 
