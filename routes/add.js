@@ -89,8 +89,8 @@ router.post('/rays', (req, res)=>{
         date: req.body.date,
         
     }
-    if(ray.fileUrl && ray.date && ray.title ){
-        User.findByIdAndUpdate(userId, { $push : {drugs:drug}})
+    if(ray.fileUrl ){
+        User.findByIdAndUpdate(userId, { $push : {rays:ray}})
         .then(data => res.json(data))
         .catch(err=>res.send(err))
     }else{
