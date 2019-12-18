@@ -77,7 +77,7 @@ router.post('/changepassword/:token' , (req , res)=>{
     
 // newPassword
     //find the id from the token 
-    var decoded = jwt.verify(req.body.token, 'secret');
+    var decoded = jwt.verify(req.params.token, 'secret');
     let userId = decoded.user._id
     //compare the password with the old pass
     User.findById(userId)
