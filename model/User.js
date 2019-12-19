@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const userShema = new Schema({
 first_name : {
-    required:true,
+    required:false,
     type:String
 },
 last_name : {
-    required:true,
+    required:false,
     type:String
 },
 email: {
@@ -18,54 +18,53 @@ password : {
     type:String
 },
 dob : {
-    required:true,
+    required:false,
     type:Date
 },
 weight : {
-    required:true,
+    required:false,
     type:Number
 },
 height : {
-    required:true,
+    required:false,
     type:Number
 },
 nationality : {
-    required:true,
+    required:false,
     type:String
 },
 phoneNumber : {
-    required:true,
+    required:false,
     type:String
 },
 emergencyName : {
-    required:true,
+    required:false,
     type:String
 },
-specialty: {
-    required:true,
-    type:String
-},
-year_of_exp : {
-    required:true,
-    type:String
-},
+
 gender : {
-    required:true,
+    required:false,
     type:String
 },
-working_time : {
-    required:true,
-    type:String
-},
-rating : {
-    required:true,
-    type:String
-},
+
 emergencyPhone : {
-    required:true,
+    required:false,
     type:String
 },
-},{timestamps:true})
+drugs:[
+   
+  ],
+  rays:[
+  
+  ],
+  tests:[
+ 
+  ],  
+  medical_records:[
+    
+  ],
+}
+,{timestamps:true})
  
 const User = mongoose.model('user',userShema)
 module.exports=User

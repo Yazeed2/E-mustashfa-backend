@@ -25,6 +25,8 @@ router.post('/register', (req,res)=>{
     User.findOne({email : req.body.email})
     .then(user =>{
         if(!user){
+            console.log('working!');
+            
             bcrypt.hash(req.body.password, 10, (err, hash)=>{ 
                 newUser.password = hash
                 User.create(newUser)
@@ -35,6 +37,7 @@ router.post('/register', (req,res)=>{
             res.send('email is used')
         }
     }).catch(err => res.send(err))
+    //send a token here VVV
 })
 // nouf 
 // Login steps (1-login) 
@@ -42,9 +45,10 @@ router.post('/login', (req, res) => {
 
     User.findOne({ email: req.body.email
         })
-        .then(user => {            
+        .then(user => {  
+           
+   
             if (user) {
-                
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     user.password = "" 
                     var paylod = {
@@ -54,6 +58,8 @@ router.post('/login', (req, res) => {
                         expiresIn: 60*60*24*365
                     })
                     res.send(token)
+        
+
                 }
                 // if password not the same
                 else {
@@ -70,20 +76,36 @@ router.post('/login', (req, res) => {
 
 // change the passwoer 
 
-router.post('/changepassword/:token' , (req , res)=>{
+router.post('/changepassword' , (req , res)=>{
     
 // newPassword
-
-    var decoded = jwt.verify(req.params.token, 'secret')
-    bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
-        var password = hash
-        User.findByIdAndUpdate(decoded.user._id , {password:password  }  )
-        .then(user => res.send({msg :`the password has change `  , user :user}))
-        .catch(err => res.send(err))
+    //find the id from the token 
+    var decoded = jwt.verify(req.body.token, 'secret');
+    let userId = decoded.user._id
+    //compare the password with the old pass
+    User.findById(userId)
+    .then(user => {            
+        if (user) {
+            
+            if (bcrypt.compareSync(req.body.oldPassword, user.password)) {
+              //change the password 
+              bcrypt.hash(req.body.newPassword, 10, (err, hash)=>{ 
+             
+                User.findByIdAndUpdate(userId, {password:hash})
+                .then(user => res.json({msg:'changed password!'}))
+                .catch(err=> res.send(err))
+            })
+            }
+            else {
+                res.json({msg :"Password is not currect"})
+            }
+        } 
     })
+    .catch(err=>res.send(err))
+    
  
-
 })
+
 
 
 
