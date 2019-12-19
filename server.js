@@ -4,7 +4,7 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 PORT = 4000 || process.env.PORT
 
-mongoose.connect('mongodb://localhost/eMustashfa',{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect(procces.env.DB,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(res=>console.log('mongoDB is connected'))
 .catch(err=>console.log(err))
 
