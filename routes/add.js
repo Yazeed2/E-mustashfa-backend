@@ -60,7 +60,7 @@ router.post('/records', (req, res)=>{
         
     }
     if(record.date && record.text && record.type ){
-        User.findByIdAndUpdate(userId, { $push : {drugs:drug}})
+        User.findByIdAndUpdate(userId, { $push : {medical_records:record}})
         .then(data => res.json(data))
         .catch(err=>res.send(err))
     }else{
